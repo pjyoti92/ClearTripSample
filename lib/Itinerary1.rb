@@ -1,0 +1,2 @@
+class Itinerary1
+end
