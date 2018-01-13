@@ -1,0 +1,5 @@
+default: --format html --out ./DebugReport/HtmlReport/reports.html
+#default: --format AllureCucumber::Formatter --out ./DebugReport/HtmlReport/report
+
+chrome: DRIVER=chrome
+firefox: DRIVER=firefox

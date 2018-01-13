@@ -1,8 +1,12 @@
+def verify_equal(act_val,exp_val)
+  assert_equal(exp_val,act_val,"Wrong value in field , expected :#{exp_val} Actual :#{act_val}")
+end
 
-Given /^I open the application login page$/ do 
+Given /^I open the application login page$/ do
   @stepDescription="I open the application login page";
-  @logger.info("******DRIVER IS ON PAGE :*****")
   @homepage=@browser.open_application()
+  @current_page=@homepage
+  @logger.info("******DRIVER IS ON PAGE :*****#{@current_page}")
 end
 
 Then /^I wait for "(.*?)" seconds$/ do |fieldname|
@@ -44,4 +48,21 @@ Then /^I clicked on flight "(.*?)" in flight grid$/ do |row_number|
   @stepDescription="I clicked on flight #{row_number} in flight grid"
   @logger.info("******DRIVER IS ON PAGE :*****#{@current_page}")
   @current_page=@current_page.select_book_of_row(row_number)
+end
+
+Then /^I validated "(.*?)" is enabled$/ do |fieldname|
+  @stepDecription="I validated #{fieldname} is enabled"
+  @logger.info("******DRIVER IS ON PAGE :*****#{@current_page}")
+  act_val=@current_page.check_enabled(fieldname)
+  verify_equal(act_val,true);
+end
+
+Then /^I am on "(.*?)" page$/ do |fieldname|
+  @stepDescription="I am on #{fieldname} page"
+  @current_page.verify_and_return_page(fieldname)
+end
+
+Then /^I validate "(.*?)" is selected$/ do |fieldname|
+  @stepDescription="I validate #{fieldname} is selected"
+  @current_page.is_selected(fieldname)
 end
